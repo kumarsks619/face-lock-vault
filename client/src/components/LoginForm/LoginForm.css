@@ -1,0 +1,36 @@
+.loginForm {
+    display: grid;
+    place-items: center;
+    height: 100%;
+}
+
+.loginForm form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 400px;
+}
+
+.loginForm form h1 {
+    font-size: 1.1rem;
+    margin-bottom: 1.4rem;
+}
+
+.loginForm form input {
+    margin-bottom: 1rem;
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.loginForm form button {
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    margin-top: 0.6rem;
+    cursor: pointer;
+}
