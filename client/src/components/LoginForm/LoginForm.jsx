@@ -26,8 +26,24 @@ const LoginForm = () => {
             })
     }, [])
 
+    const capture = () => {
+        const video = videoRef.current
+        const canvas = canvasRef.current
+
+        // scale the canvas accordingly
+        canvas.width = video.videoWidth
+        canvas.height = video.videoHeight
+
+        // draw the video at that frame
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height)
+
+        // convert it to a blob file to upload
+        canvas.toBlob(function (blob) {}, 'image/jpeg', 1)
+    }
+
     const handleLogin = async (e) => {
         e.preventDefault()
+        await capture()
 
         const q = query(collection(db, 'users'), where('email', '==', email))
         const querySnapshot = await getDocs(q)
@@ -38,8 +54,10 @@ const LoginForm = () => {
         }
 
         querySnapshot.forEach((doc) => {
-            dispatch(loginUser(doc.data()))
-            navigate('/')
+            setTimeout(() => {
+                dispatch(loginUser(doc.data()))
+                navigate('/')
+            }, 5000)
         })
     }
 

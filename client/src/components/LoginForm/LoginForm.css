@@ -51,6 +51,8 @@
     width: 420px;
     height: 100%;
     position: relative;
+    border-radius: 6px;
+    overflow: hidden;
 }
 
 .loginForm__videoWrapper video {
@@ -60,7 +62,7 @@
 
 .loginForm__videoWrapper canvas {
     position: absolute;
-    opacity: 0;
+    /* opacity: 0; */
     top: 0;
     left: 0;
     width: 100%;

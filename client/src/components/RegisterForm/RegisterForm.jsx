@@ -23,6 +23,11 @@ const RegisterForm = () => {
             })
     }, [])
 
+    const resetForm = () => {
+        setName('')
+        setEmail('')
+    }
+
     const captureAndSaveUser = () => {
         const video = videoRef.current
         const canvas = canvasRef.current
@@ -60,6 +65,7 @@ const RegisterForm = () => {
                                         email,
                                         face: downloadURL,
                                     })
+                                    resetForm()
                                     alert('You have been registered! Proceed to login.')
                                 } catch (e) {
                                     console.error('Error registering user: ', e)

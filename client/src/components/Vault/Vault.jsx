@@ -10,6 +10,7 @@ const Vault = () => {
                 <div className="vault__addButton">
                     <img src={addIcon} alt="add document" />
                     <p>Add Document</p>
+                    <input type="file" />
                 </div>
             </div>
         </div>
