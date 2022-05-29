@@ -5,6 +5,7 @@ import Navbar from './components/Navbar/Navbar'
 import Footer from './components/Footer/Footer'
 import LoginForm from './components/LoginForm/LoginForm'
 import RegisterForm from './components/RegisterForm/RegisterForm'
+import PrivateRoute from './config/privateRoute'
 import './App.css'
 
 const App = () => {
@@ -16,7 +17,14 @@ const App = () => {
                     <Routes>
                         <Route path="/login" element={<LoginForm />} />
                         <Route path="/register" element={<RegisterForm />} />
-                        <Route path="/" element={<Vault />} />
+                        <Route
+                            path="/"
+                            element={
+                                <PrivateRoute>
+                                    <Vault />
+                                </PrivateRoute>
+                            }
+                        />
                     </Routes>
                 </div>
                 <Footer />

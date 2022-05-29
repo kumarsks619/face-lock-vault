@@ -1,29 +1,72 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { collection, query, where, getDocs } from 'firebase/firestore'
+
+import { db } from '../../config/firebase'
+import { loginUser } from '../../store/actions'
 import './LoginForm.css'
 
 const LoginForm = () => {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    const videoRef = useRef()
+    const canvasRef = useRef()
     const [email, setEmail] = useState('')
 
-    const handleLogin = (e) => {
+    useEffect(() => {
+        navigator.mediaDevices
+            .getUserMedia({ video: true })
+            .then((stream) => {
+                videoRef.current.srcObject = stream
+            })
+            .catch((err) => {
+                console.error('Error: ', err)
+            })
+    }, [])
+
+    const handleLogin = async (e) => {
         e.preventDefault()
-        alert('Logged in!')
+
+        const q = query(collection(db, 'users'), where('email', '==', email))
+        const querySnapshot = await getDocs(q)
+
+        if (querySnapshot.size === 0) {
+            alert("Error: User doesn't exists! Sign up first.")
+            return
+        }
+
+        querySnapshot.forEach((doc) => {
+            dispatch(loginUser(doc.data()))
+            navigate('/')
+        })
     }
 
     return (
         <div className="loginForm">
-            <form>
-                <h1>Login to Your Vault</h1>
-                <input
-                    required
-                    type="email"
-                    placeholder="Email Address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <button type="submit" onClick={handleLogin}>
-                    Login
-                </button>
-            </form>
+            <div className="loginForm__wrapper">
+                <form>
+                    <h1>Login to Your Vault</h1>
+                    <input
+                        required
+                        type="email"
+                        placeholder="Email Address"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <p className="loginForm__helperText">
+                        Before clicking Login, make sure you are looking at the camera.
+                    </p>
+                    <button type="submit" onClick={handleLogin}>
+                        Login
+                    </button>
+                </form>
+                <div className="loginForm__videoWrapper">
+                    <video ref={videoRef} autoPlay />
+                    <canvas ref={canvasRef} />
+                </div>
+            </div>
         </div>
     )
 }

@@ -4,6 +4,10 @@
     height: 100%;
 }
 
+.registerForm__wrapper {
+    display: flex;
+}
+
 .registerForm form {
     display: flex;
     flex-direction: column;
@@ -12,6 +16,7 @@
     border: 1px solid #ccc;
     border-radius: 6px;
     width: 400px;
+    margin-right: 2rem;
 }
 
 .registerForm form h1 {
@@ -28,10 +33,36 @@
     border: 1px solid #ccc;
 }
 
+.registerForm__helperText {
+    font-size: 0.8rem;
+    color: grey;
+    text-align: center;
+}
+
 .registerForm form button {
     border: none;
     padding: 0.6rem 1rem;
     border-radius: 6px;
     margin-top: 0.6rem;
     cursor: pointer;
+}
+
+.registerForm__videoWrapper {
+    width: 420px;
+    height: 100%;
+    position: relative;
+}
+
+.registerForm__videoWrapper video {
+    width: 100%;
+    border-radius: 6px;
+}
+
+.registerForm__videoWrapper canvas {
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
